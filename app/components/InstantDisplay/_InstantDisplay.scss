@@ -1,0 +1,30 @@
+@import "../../scss/lib/theme/global-vars";
+
+.data-vis {
+  svg {
+    width:100%;
+    height: 200px;
+    rect{
+      transition: all 2s;
+    }
+  }
+  div{
+    transition: all 1s;
+
+    display:inline-block;
+    height:30vw;
+    p {
+      transform: rotate(90deg);
+      transform-origin: left bottom;
+      font-size:4.5vw;
+      float:left;
+      color: rgba(255,255,255,.7);
+    }
+  }
+  .made{
+    background-color:#12dc12;
+  }
+  .used{
+    background-color:red;
+  }
+}
