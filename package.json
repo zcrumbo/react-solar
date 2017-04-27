@@ -28,10 +28,13 @@
     "babel-preset-react": "^6.24.1",
     "dotenv": "^4.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
+    "fetch": "^1.1.0",
     "html-loader": "^0.4.5",
     "html-webpack-plugin": "^2.28.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "superagent": "^3.5.2",
+    "tiny-jsonp": "^1.0.4",
     "webpack": "^2.4.1"
   },
   "devDependencies": {
