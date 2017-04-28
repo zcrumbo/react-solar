@@ -69,11 +69,11 @@ export class InstantDisplay extends Component{
         <ul>
          <li>
           <span> Consumed:</span>
-          <CountUp  start={this.state.prevCons} end={this.state.instant.consumption} duration={2} /> Watts
+          <CountUp  start={this.state.prevCons} end={this.state.instant.consumption} duration={2} useEasing={false}/> Watts
          </li>
          <li>
          <span> Produced:</span>
-          <CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} /> Watts </li>
+          <CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} useEasing={false} /> Watts </li>
         </ul>
       </div>
     );
