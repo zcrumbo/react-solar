@@ -3,6 +3,8 @@
 import React from 'react';
 import { Component } from 'react';
 import request from 'superagent';
+import CountUp from 'react-countup';
+
 
 import './_InstantDisplay.scss';
 
@@ -12,6 +14,8 @@ export class InstantDisplay extends Component{
     this.state = {
       consumed:.5,
       generated:.5,
+      prevGen:0,
+      prevCons:0,
       instant: {
         generation:0,
         consumption:0,
@@ -35,13 +39,20 @@ export class InstantDisplay extends Component{
     .set('Accept', 'application/json')
     .end( (err, res)=> {
       if (err) return new Error('api error');
-      this.setState(res.body);
       let total = res.body.instant.consumption+res.body.instant.generation;
       let percentMade = res.body.instant.generation/total;
       let percentUsed = res.body.instant.consumption/total;
-      this.setState({generated:percentMade, consumed: percentUsed});
+      this.setState( (prevState) => ({
+        generated:percentMade,
+        consumed: percentUsed,
+        prevGen: prevState.instant.generation,
+        prevCons: prevState.instant.consumption,
+      }));
+      this.setState(res.body);
     });
   }
+
+
   render() {
 
     return  (
@@ -56,8 +67,13 @@ export class InstantDisplay extends Component{
           </div>
         </div>
         <ul>
-         <li> <span> Consumed:</span> {this.state.instant.consumption} Watts </li>
-         <li> <span> Produced:</span> {this.state.instant.generation} Watts </li>
+         <li>
+          <span> Consumed:</span>
+          <CountUp  start={this.state.prevCons} end={this.state.instant.consumption} duration={2} /> Watts
+         </li>
+         <li>
+         <span> Produced:</span>
+          <CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} /> Watts </li>
         </ul>
       </div>
     );
