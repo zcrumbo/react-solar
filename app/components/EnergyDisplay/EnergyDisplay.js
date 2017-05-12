@@ -29,18 +29,15 @@ export class EnergyDisplay extends Component{
     .end( (err, res)=> {
       if (err) return new Error('api error');
       this.setState(res.body);
-      console.log('llllllll',res.body);
     });
   }
   render() {
     return  (
-      <ul>
-       <li> <span> Consumed:</span> {this.state.instant.consumption} Watts </li>
-       <li> <span> Produced:</span> {this.state.instant.generation} Watts </li>
-      </ul>
-
-      );
-
+      <div>
+       <span> Consumed: {this.state.instant.consumption} Watts </span>
+       <span> Produced:{this.state.instant.generation} Watts </span>
+      </div>
+    );
   }
 }
 

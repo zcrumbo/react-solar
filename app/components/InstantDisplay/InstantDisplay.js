@@ -56,7 +56,7 @@ export class InstantDisplay extends Component{
   render() {
 
     return  (
-      <div >
+      <div className="instant-display">
         <div className="data-vis">
           <div className="made" style={{width: this.state.generated*100+'vw'}}>
             <p>generated</p>
@@ -67,13 +67,14 @@ export class InstantDisplay extends Component{
           </div>
         </div>
         <ul>
-         <li>
-          <span> Consumed:</span>
-          <CountUp  start={this.state.prevCons} end={this.state.instant.consumption} duration={2} useEasing={false}/> Watts
+         <li className="consumed">
+          Consumed:
+          <span> <CountUp  start={this.state.prevCons} end={this.state.instant.consumption} duration={2} useEasing={false}/> Watts </span>
          </li>
-         <li>
-         <span> Produced:</span>
-          <CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} useEasing={false} /> Watts </li>
+         <li className="generated">
+         Generated:
+          <span> <CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} useEasing={false} /> Watts  </span>
+          </li>
         </ul>
       </div>
     );
