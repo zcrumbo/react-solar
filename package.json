@@ -26,6 +26,7 @@
     "babel-loader": "^7.0.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "bluebird": "^3.5.0",
     "chart.js": "^1.1.1",
     "css-loader": "^0.28.0",
     "dotenv": "^4.0.0",
@@ -42,7 +43,9 @@
     "sass-loader": "^6.0.3",
     "superagent": "^3.5.2",
     "tiny-jsonp": "^1.0.4",
-    "webpack": "^2.4.1"
+    "webpack": "^2.4.1",
+    "xml-loader": "^1.2.1",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.4.5",

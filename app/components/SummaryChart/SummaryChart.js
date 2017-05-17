@@ -8,9 +8,9 @@ import {Parser} from 'xml2js';
 const parser = new Parser({mergeAttrs:true, charkey:'val'});
 const PieChart = require('react-chartjs').Pie;
 
-import './_UsageChart.scss';
+import './_SummaryChart.scss';
 
-class UsageChart extends Component{
+class SummaryChart extends Component{
   constructor(props){
     super(props);
 
@@ -18,22 +18,16 @@ class UsageChart extends Component{
       chartData : [
         {
           value: 100,
-          color:'#F7464A',
-          highlight: '#FF5A5E',
-          label: 'Heat Pump'
+          color:'#12DC12',
+          highlight: '#62ff62',
+          label: 'Produced'
         },
         {
           value: 100,
-          color: '#46BFBD',
-          highlight: '#5AD3D1',
-          label: 'Water Heater'
+          color: '#ff0000',
+          highlight: '#ff5656',
+          label: 'Consumed'
         },
-        {
-          value: 100,
-          color: '#FDB45C',
-          highlight: '#FFC870',
-          label: 'Everything Else'
-        }
       ],
       chartOptions:{
         animationSteps: 50,
@@ -44,23 +38,17 @@ class UsageChart extends Component{
       now: moment().unix()
     };
   }
-
   componentDidMount(){
     this.getLastYear()
     .then( res => {
       this.setState( () => ({
         chartData:[
           {
-            value: parseInt(res.heat_pump)
+            value: parseInt(res.solar)
           },
           {
-            value: parseInt(res.water_heater)
+            value: parseInt(res.solar + res.grid)
           },
-          {
-            value: parseInt((res.grid + res.solar)
-            - (res.heat_pump
-            + res.water_heater))
-          }
 
         ]
       }));
@@ -101,16 +89,15 @@ class UsageChart extends Component{
     return procObj;
   }
 
-
   render(){
-
-    return (
-        <section className="usage piechart">
-          <h2>Usage: Last 12 Months (kWh)</h2>
-          <PieChart data={this.state.chartData} options={this.state.chartOptions}  height="300" width="300"/>
-        </section>
+    return(
+      <section className="summary piechart">
+        <h2>12 Month Summary (kwh)</h2>
+        <PieChart data={this.state.chartData} options={this.state.chartOptions} width="300" height="300" />
+      </section>
     );
   }
+
 }
 
-export default UsageChart;
+export default SummaryChart;

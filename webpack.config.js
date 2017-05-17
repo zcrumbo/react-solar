@@ -45,7 +45,9 @@ module.exports = {
       {
         test: /\.(gif|png|jpe?g|svg|ico)$/i,
         loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]'
-
+      },
+      {test: /\.xml$/,
+        loader: 'xml-loader'
       },
     ]
   }
