@@ -2,13 +2,11 @@
 
 import React, {Component} from 'react';
 import moment from 'moment';
-import request from 'superagent';
-import {Parser} from 'xml2js';
+import {fetchData, processResults} from '../../service/apiService.js';
 
-const parser = new Parser({mergeAttrs:true, charkey:'val'});
 const PieChart = require('react-chartjs').Pie;
 
-import './_SummaryChart.scss';
+import './_summaryChart.scss';
 
 class SummaryChart extends Component{
   constructor(props){
@@ -39,15 +37,16 @@ class SummaryChart extends Component{
     };
   }
   componentDidMount(){
-    this.getLastYear()
+    fetchData(this.state.lastYear, this.state.now)
     .then( res => {
+      let proc = processResults(res);
       this.setState( () => ({
         chartData:[
           {
-            value: parseInt(res.solar)
+            value: parseInt(proc.solar)
           },
           {
-            value: parseInt(res.solar + res.grid)
+            value: parseInt(proc.solar + proc.grid)
           },
 
         ]
@@ -58,36 +57,7 @@ class SummaryChart extends Component{
     });
   }
 
-  getLastYear(){
-    return new Promise( (resolve, reject) => {
-      request.post('http://www.zacharycrumbo.com/widgets/solar-vanilla/solar-xml.php')
-      .set('Accept', 'application/json')
-      .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        start: this.state.lastYear,
-        end: this.state.now,
-        interval: 'd',
-        skip: 363,
-      }).end ((err, res) => {
-        if (err) reject('server error');
-        parser.parseString(res.text, (err, results) => {
-          if (err) reject('xml parse error');
-          var data = this.processResults(results.group.data[0]);
-          resolve(data);
-        });
-      });
-    });
-  }
 
-  processResults(resObj){
-    let procObj = {};
-    resObj.r[0].c.forEach((el, index) => {
-      let name = resObj.cname[index].val.replace(/[D\s]/g, '_').replace(/[!@|]/g, '').toLowerCase();
-
-      procObj[name]=(el - resObj.r[1].c[index])/3600000;
-    });
-    return procObj;
-  }
 
   render(){
     return(
