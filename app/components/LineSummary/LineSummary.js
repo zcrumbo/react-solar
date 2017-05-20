@@ -1,9 +1,8 @@
 'use strict';
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {processResultsLine} from '../../service/apiService.js';
-
-import {processResultsPie} from '../../service/apiService.js';
 
 import './_lineSummary.scss';
 
@@ -24,19 +23,19 @@ class LineSummary extends Component{
         datasets: [
           {
             label: 'Generated',
-            fillColor: 'rgba(220,220,220,0.2)',
-            strokeColor: 'rgba(220,220,220,1)',
-            pointColor: 'rgba(220,220,220,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
+            fillColor: 'rgba(18, 220, 18, .2)',
+            strokeColor: 'rgba(18,220,18,1)',
+            pointColor: 'rgba(18,220,18,1)',
+            pointStrokeColor: '#9bff9b',
+            pointHighlightFill: '#9bff9b',
             pointHighlightStroke: 'rgba(220,220,220,1)',
             data: []
           },
           {
             label: 'consumed',
-            fillColor: 'rgba(151,187,205,0.2)',
-            strokeColor: 'rgba(151,187,205,1)',
-            pointColor: 'rgba(151,187,205,1)',
+            fillColor: 'rgba(255,0,0,0.2)',
+            strokeColor: 'rgba(255,0,0,1)',
+            pointColor: 'rgba(255,0,0,1)',
             pointStrokeColor: '#fff',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(151,187,205,1)',
@@ -68,8 +67,6 @@ class LineSummary extends Component{
     });
   }
 
-
-
   render(){
     return(
         <section className="linechart">
@@ -81,31 +78,7 @@ class LineSummary extends Component{
 
 }
 
-export default LineSummary;
-/*
-var data = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "My First dataset",
-      fillColor: "rgba(220,220,220,0.2)",
-      strokeColor: "rgba(220,220,220,1)",
-      pointColor: "rgba(220,220,220,1)",
-      pointStrokeColor: "#fff",
-      pointHighlightFill: "#fff",
-      pointHighlightStroke: "rgba(220,220,220,1)",
-      data: [65, 59, 80, 81, 56, 55, 40]
-    },
-    {
-      label: "My Second dataset",
-      fillColor: "rgba(151,187,205,0.2)",
-      strokeColor: "rgba(151,187,205,1)",
-      pointColor: "rgba(151,187,205,1)",
-      pointStrokeColor: "#fff",
-      pointHighlightFill: "#fff",
-      pointHighlightStroke: "rgba(151,187,205,1)",
-      data: [28, 48, 40, 19, 86, 27, 90]
-    }
-  ]
+LineSummary.propTypes = {
+  data: PropTypes.object
 };
-*/
+export default LineSummary;
