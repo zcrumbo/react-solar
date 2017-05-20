@@ -1,8 +1,9 @@
 'use strict';
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
-import {fetchData, processResults} from '../../service/apiService.js';
+import { processResultsPie } from '../../service/apiService.js';
 
 const PieChart = require('react-chartjs').Pie;
 
@@ -11,23 +12,22 @@ import './_usageChart.scss';
 class UsageChart extends Component{
   constructor(props){
     super(props);
-
     this.state = {
       chartData : [
         {
-          value: 100,
+          value: null,
           color:'#F7464A',
           highlight: '#FF5A5E',
           label: 'Heat Pump'
         },
         {
-          value: 100,
+          value: null,
           color: '#46BFBD',
           highlight: '#5AD3D1',
           label: 'Water Heater'
         },
         {
-          value: 100,
+          value: null,
           color: '#FDB45C',
           highlight: '#FFC870',
           label: 'Everything Else'
@@ -43,11 +43,11 @@ class UsageChart extends Component{
     };
   }
 
-  componentDidMount(){
-    fetchData(this.state.lastYear, this.state.now)
-    .then( res => {
-      let proc = processResults(res);
-      this.setState( () => ({
+  componentWillReceiveProps(nextProps){
+    if (nextProps.data.cname){
+      let proc = processResultsPie(nextProps.data);
+
+      this.setState({
         chartData:[
           {
             value: parseInt(proc.heat_pump)
@@ -61,15 +61,11 @@ class UsageChart extends Component{
             + proc.water_heater))
           }
         ]
-      }));
-    })
-    .catch(err => {
-      console.error(err);
-    });
+      });
+    }
   }
 
   render(){
-
     return (
         <section className="usage piechart">
           <h2>Usage: Last 12 Months (kWh)</h2>
@@ -78,5 +74,9 @@ class UsageChart extends Component{
     );
   }
 }
+
+UsageChart.propTypes = {
+  data: PropTypes.object
+};
 
 export default UsageChart;

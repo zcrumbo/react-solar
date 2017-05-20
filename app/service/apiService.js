@@ -2,11 +2,13 @@
 
 import request from 'superagent';
 import {Parser} from 'xml2js';
+import moment from 'moment';
 
 const parser = new Parser({mergeAttrs: true, charkey: 'val'});
 
-
+var days = null;
 function fetchData(start, end, int, skip, url){
+  days = skip;
   const endPoint = url || 'http://www.zacharycrumbo.com/widgets/solar-vanilla/solar-xml.php';
   return new Promise( (resolve, reject) => {
     request.post(endPoint)
@@ -21,21 +23,32 @@ function fetchData(start, end, int, skip, url){
       if (err) reject('server error');
       parser.parseString(res.text, (err, results) => {
         if (err) reject('xml parse error');
-        //debugger
         resolve(results.group.data[0]);
       });
     });
   });
 }
 
-function processResults(resObj){
+function processResultsPie(resObj){
   let procObj = {};
   resObj.r[0].c.forEach((el, index) => {
     let name = resObj.cname[index].val.replace(/[D\s]/g, '_').replace(/[!@|]/g, '').toLowerCase();
 
-    procObj[name]=(el - resObj.r[1].c[index])/3600000;
+    procObj[name]=(el - resObj.r[resObj.r.length-1].c[index])/3600000;
   });
   return procObj;
 }
 
-export {fetchData, processResults};
+function processResultsLine(resObj){
+  let procObj = {};
+  resObj.r[0].c.forEach((el, index) => {
+    let name = resObj.cname[index].val.replace(/[D\s]/g, '_').replace(/[!@|]/g, '').toLowerCase();
+
+    procObj[name]=resObj.r.map((row, i, array) => {
+      if(array[i-1]) return {date:moment().subtract(days*i, 'day').format('MM D YY'), kwh:( array[i-1].c[index]- row.c[index])/3600000};
+    });
+  });
+  return procObj;
+}
+
+export {fetchData, processResultsPie, processResultsLine};

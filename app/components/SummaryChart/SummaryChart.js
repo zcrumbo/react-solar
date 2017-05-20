@@ -1,8 +1,9 @@
 'use strict';
 
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
-import {fetchData, processResults} from '../../service/apiService.js';
+import {processResultsPie} from '../../service/apiService.js';
 
 const PieChart = require('react-chartjs').Pie;
 
@@ -36,28 +37,18 @@ class SummaryChart extends Component{
       now: moment().unix()
     };
   }
-  componentDidMount(){
-    fetchData(this.state.lastYear, this.state.now)
-    .then( res => {
-      let proc = processResults(res);
-      this.setState( () => ({
-        chartData:[
-          {
-            value: parseInt(proc.solar)
-          },
-          {
-            value: parseInt(proc.solar + proc.grid)
-          },
-
+  componentWillReceiveProps(nextProps){
+    if (nextProps.data.cname){
+      let proc = processResultsPie(nextProps.data);
+      this.setState(
+        {chartData:[
+          {value: parseInt(proc.solar)},
+          {value: parseInt(proc.solar + proc.grid)},
         ]
-      }));
-    })
-    .catch(err => {
-      console.error(err);
-    });
+        }
+      );
+    }
   }
-
-
 
   render(){
     return(
@@ -67,7 +58,10 @@ class SummaryChart extends Component{
       </section>
     );
   }
-
 }
+
+SummaryChart.propTypes = {
+  data: PropTypes.object
+};
 
 export default SummaryChart;

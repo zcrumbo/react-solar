@@ -3,6 +3,10 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 
+import UsageChart from '../UsageChart/UsageChart.js';
+import SummaryChart from '../SummaryChart/SummaryChart.js';
+import LineSummary from '../LineSummary/LineSummary.js';
+
 import {fetchData} from '../../service/apiService.js';
 
 import './_summaries.scss';
@@ -11,46 +15,33 @@ class Summaries extends Component{
   constructor(props){
     super(props);
 
+    this.updateState = this.updateState.bind(this);
     this.state={
       lastYear: moment().subtract(1, 'year').unix(),
       now: moment().unix(),
-      chartData:[]
+      solarData:{}
     };
   }
+
   componentDidMount(){
-    // fetchData(this.lastYear, this.now, 'd', 363)
-    // .then( res => {
-    //   this.setState({
-    //     chartData:[
-    //       {value: parseInt(res.solar)},
-    //       {value: parseInt(res.solar + res.grid)}
-    //     ]
-    //   });
-    // });
-    // debugger;
+    this.updateState();
+  }
+  updateState(){
+    fetchData(this.state.lastYear, this.state.now, 'd', '5')
+    .then( res => {
+      this.setState({solarData: res});
+      //console.log(this.state.solarData)
+    });
   }
   render(){
-    return null
+    return (
+      <section>
+        <UsageChart data={this.state.solarData} />
+        <SummaryChart data = {this.state.solarData} />
+        <LineSummary data = {this.state.solarData} />
+      </section>
+    );
   }
-  // getLastYear(){
-  //   return new Promise( (resolve, reject) => {
-  //     request.post('http://www.zacharycrumbo.com/widgets/solar-vanilla/solar-xml.php')
-  //     .set('Accept', 'application/json')
-  //     .set('Content-type', 'application/x-www-form-urlencoded')
-  //     .send({
-  //       start: this.state.lastYear,
-  //       end: this.state.now,
-  //       interval: 'd',
-  //       skip: 363,
-  //     }).end ((err, res) => {
-  //       if (err) reject('server error');
-  //       parser.parseString(res.text, (err, results) => {
-  //         if (err) reject('xml parse error');
-  //         resolve(results.group.data[0]);
-  //       });
-  //     });
-  //   });
-  // }
 }
 
 export default Summaries;
