@@ -16,7 +16,9 @@ class LineSummary extends Component{
       chartOptions:{
         animationSteps: 50,
         animationEasing: 'easeInOutQuart',
-        responsive: true
+        responsive: true,
+        scaleShowVerticalLines : false,
+        pointDot: false
       },
       chartData: {
         labels: [],
