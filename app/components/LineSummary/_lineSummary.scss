@@ -1,6 +1,11 @@
 @import "../../scss/lib/theme/global-vars";
 
 .linechart{
-  width:94%;
-  margin: $gutter-std;
+  width:100%;
+  //margin: $gutter-std;
+  div{
+    h2{
+      width:100%;
+    }
+  }
 }

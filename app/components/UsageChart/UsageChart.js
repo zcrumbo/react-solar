@@ -62,7 +62,6 @@ class UsageChart extends Component{
           }
         ]
       });
-      debugger
     }
   }
 

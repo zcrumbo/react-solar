@@ -18,22 +18,14 @@ class LineSummary extends Component{
         animationSteps: 50,
         animationEasing: 'easeInOutQuart',
         responsive: true,
-        scaleShowVerticalLines : false,
-        pointDot: false,
-        //String - A legend template
-        legendTemplate : ''
+        scaleShowVerticalLines : true,
+        pointDotRadius: 3,
+        pointHitDetectionRadius: 5,
 
       },
       chartData: {
         labels: [],
-        datasets: [
-          {
-
-          },
-          {
-
-          }
-        ]
+        datasets: [{},{}]
       }
     };
   }
@@ -52,7 +44,6 @@ class LineSummary extends Component{
     //LineChart.defaults.global.legend.display = false;
     this.setState({
       chartData:{
-       //showScale:false,
         labels: dates.splice(1),
         datasets:[
           {
@@ -82,7 +73,7 @@ class LineSummary extends Component{
   render(){
     return(
         <section className="linechart">
-          <h2>12 Month Summary</h2>
+          <div><h2>12 Month Summary</h2></div>
           <LineChart data={this.state.chartData} options={this.state.chartOptions} redraw/>
         </section>
     );

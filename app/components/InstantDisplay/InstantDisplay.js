@@ -56,7 +56,7 @@ export class InstantDisplay extends Component{
   render() {
 
     return  (
-      <div className="instant-display">
+      <section className="instant-display">
         <div className="data-vis">
           <div className="made" style={{width: this.state.generated*100+'vw'}}>
             <p>generated</p>
@@ -76,7 +76,7 @@ export class InstantDisplay extends Component{
           <span> <CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} useEasing={false} /> Watts  </span>
           </li>
         </ul>
-      </div>
+      </section>
     );
   }
 }
