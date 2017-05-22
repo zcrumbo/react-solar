@@ -27,7 +27,7 @@ class Summaries extends Component{
     this.updateState();
   }
   updateState(){
-    fetchData(this.state.lastYear, this.state.now, 'd', '5')
+    fetchData(this.state.lastYear, this.state.now, 'd', '4')
     .then( res => {
       this.setState({solarData: res});
       //console.log(this.state.solarData)

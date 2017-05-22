@@ -45,7 +45,7 @@ function processResultsLine(resObj){
     let name = resObj.cname[index].val.replace(/[D\s]/g, '_').replace(/[!@|]/g, '').toLowerCase();
 
     procObj[name]=resObj.r.map((row, i, array) => {
-      if(array[i-1]) return {date:moment().subtract(days*i, 'day').format('MM D YY'), kwh:( array[i-1].c[index]- row.c[index])/3600000};
+      if(array[i-1]) return {date:moment().subtract((+days+1)*i, 'day').format('MM DD YY'), kwh:( array[i-1].c[index]- row.c[index])/3600000};
     });
   });
   return procObj;
