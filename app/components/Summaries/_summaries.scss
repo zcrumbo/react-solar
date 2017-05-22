@@ -1,0 +1,16 @@
+@import "../../scss/lib/theme/global-vars";
+
+.summaries{
+  div{
+    display:flex;
+    .btn-classic{
+      flex-grow:1;
+      height: 6vw;
+      font-size: 3vw;
+      margin: 1%;
+      background: #ffc107;
+      border:none;
+      color: white;
+    }
+  }
+}

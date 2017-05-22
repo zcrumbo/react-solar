@@ -15,19 +15,19 @@ class UsageChart extends Component{
     this.state = {
       chartData : [
         {
-          value: null,
+          value: 1,
           color:'#F7464A',
           highlight: '#FF5A5E',
           label: 'Heat Pump'
         },
         {
-          value: null,
+          value: 1,
           color: '#46BFBD',
           highlight: '#5AD3D1',
           label: 'Water Heater'
         },
         {
-          value: null,
+          value: 1,
           color: '#FDB45C',
           highlight: '#FFC870',
           label: 'Everything Else'
@@ -50,15 +50,15 @@ class UsageChart extends Component{
       this.setState({
         chartData:[
           {
-            value: parseInt(proc.heat_pump)
+            value: parseFloat((proc.heat_pump).toFixed(2))
           },
           {
-            value: parseInt(proc.water_heater)
+            value: parseFloat((proc.water_heater).toFixed(2))
           },
           {
-            value: parseInt((proc.grid + proc.solar)
-            - (proc.heat_pump
-            + proc.water_heater))
+            value: parseFloat(((proc.grid + proc.solar)
+                        - (proc.heat_pump
+                        + proc.water_heater)).toFixed(2))
           }
         ]
       });
@@ -68,7 +68,7 @@ class UsageChart extends Component{
   render(){
     return (
         <section className="usage piechart">
-          <h2>Usage: Last 12 Months (kWh)</h2>
+          <h2>Usage: Last {this.props.label} (kWh)</h2>
           <PieChart data={this.state.chartData} options={this.state.chartOptions}  height="300" width="300"/>
         </section>
     );

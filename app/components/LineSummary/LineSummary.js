@@ -15,12 +15,14 @@ class LineSummary extends Component{
     this.state = {
       chartOptions:{
         showScale: false,
-        animationSteps: 50,
-        animationEasing: 'easeInOutQuart',
+        //animation: false,
+        // animationSteps: 50,
+        // animationEasing: 'easeInOutQuart',
         responsive: true,
         scaleShowVerticalLines : true,
         pointDotRadius: 3,
-        pointHitDetectionRadius: 5,
+        pointHitDetectionRadius: 1,
+        //bezierCurve:false,
 
       },
       chartData: {
@@ -35,16 +37,16 @@ class LineSummary extends Component{
       if(el) return el.date;
     });
     let gridData = proc.grid.map((el, i) => {
-      if(el) return parseInt(el.kwh + proc.solar[i].kwh);
+      if(el) return parseFloat((el.kwh + proc.solar[i].kwh).toFixed(2));
     });
     let solarData = proc.solar.map(el => {
-      if(el) return parseInt(el.kwh);
+      if(el) return parseFloat((el.kwh).toFixed(2));
     });
         //debugger
     //LineChart.defaults.global.legend.display = false;
     this.setState({
       chartData:{
-        labels: dates.splice(1),
+        labels: dates.splice(1).reverse(),
         datasets:[
           {
             label: 'generated',
@@ -54,7 +56,7 @@ class LineSummary extends Component{
             pointStrokeColor: '#9bff9b',
             pointHighlightFill: '#9bff9b',
             pointHighlightStroke: 'rgba(220,220,220,1)',
-            data:solarData.splice(1)
+            data:solarData.splice(1).reverse()
           },
           {
             label: 'consumed',
@@ -64,7 +66,7 @@ class LineSummary extends Component{
             pointStrokeColor: '#fff',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(151,187,205,1)',
-            data:gridData.splice(1)}
+            data:gridData.splice(1).reverse()}
         ]
       }
     });
@@ -73,7 +75,7 @@ class LineSummary extends Component{
   render(){
     return(
         <section className="linechart">
-          <div><h2>12 Month Summary</h2></div>
+          <div><h2>{this.props.label} Summary</h2></div>
           <LineChart data={this.state.chartData} options={this.state.chartOptions} redraw/>
         </section>
     );

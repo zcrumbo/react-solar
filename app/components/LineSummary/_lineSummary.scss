@@ -2,10 +2,18 @@
 
 .linechart{
   width:100%;
+  position:relative;
   //margin: $gutter-std;
   div{
+    position: absolute;
+    top: 70px;
+    text-align: center;
+    width: 100%;
+    z-index: -1;
+    overflow: hidden;
     h2{
-      width:100%;
-    }
+    font-size: 11vw;
+    white-space: nowrap;
+    color: rgba(0,0,0,.5);    }
   }
 }

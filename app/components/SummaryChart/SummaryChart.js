@@ -42,8 +42,8 @@ class SummaryChart extends Component{
       let proc = processResultsPie(nextProps.data);
       this.setState(
         {chartData:[
-          {value: parseInt(proc.solar)},
-          {value: parseInt(proc.solar + proc.grid)},
+          {value: parseFloat(proc.solar.toFixed(2))},
+          {value: parseFloat((proc.solar + proc.grid).toFixed(2))},
         ]
         }
       );
@@ -53,7 +53,7 @@ class SummaryChart extends Component{
   render(){
     return(
       <section className="summary piechart">
-        <h2>12 Month Summary (kwh)</h2>
+        <h2>{this.props.label} Summary (kwh)</h2>
         <PieChart data={this.state.chartData} options={this.state.chartOptions} width="300" height="300" />
       </section>
     );
