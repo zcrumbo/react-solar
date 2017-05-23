@@ -21,8 +21,12 @@ class LineSummary extends Component{
         scales: {
           xAxes:[{
             display:false
+          }],
+          yAxes:[{
+            display:false
           }]
         },
+        pointRadius:0,
         responsive: true,
         tooltips:{
           mode: 'index',
@@ -50,23 +54,25 @@ class LineSummary extends Component{
         labels: dates.splice(1).reverse(),
         datasets:[
           {
-            label: 'generated',
+            label: 'kWh generated',
             backgroundColor: 'rgba(18, 220, 18, .2)',
             strokeColor: 'rgba(18,220,18,1)',
             pointColor: 'rgba(18,220,18,1)',
             pointStrokeColor: '#9bff9b',
             pointHighlightFill: '#9bff9b',
             pointHighlightStroke: 'rgba(220,220,220,1)',
+            pointRadius: 0,
             data:solarData.splice(1).reverse()
           },
           {
-            label: 'consumed',
+            label: 'kWh consumed',
             backgroundColor: 'rgba(255,0,0,0.2)',
             strokeColor: 'rgba(255,0,0,1)',
             pointColor: 'rgba(255,0,0,1)',
             pointStrokeColor: '#fff',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(151,187,205,1)',
+            pointRadius: 0,
             data:gridData.splice(1).reverse()}
         ]
       }
