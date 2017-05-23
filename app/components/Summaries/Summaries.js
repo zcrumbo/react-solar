@@ -20,24 +20,34 @@ class Summaries extends Component{
       lastYear: moment().subtract(1, 'year').unix(),
       now: moment().unix(),
       solarData:{},
-      label: '24 Hour'
+      label: 'Loading',
+      loading: true,
     };
   }
 
   componentDidMount(){
     this.updateState();
   }
+
   updateState(start, end, intv, skip, label){
+    if (!this.state.loading) this.setState({loading:true});
     if (skip === undefined) skip=9;
     if(!label) label='24 Hour';
     fetchData(start || moment().subtract(1, 'day').unix(), end || this.state.now, intv || 'm', skip)
     .then( res => {
-      this.setState({solarData: res, label});
+      this.setState({solarData: res, label, loading:false});
     });
   }
   render(){
+    let loading = null;
+    if(this.state.loading) {
+      loading  = <div className="loader-parent">
+                  <div className="loader"></div>
+                  </div>;
+                }
     return (
       <section className="summaries">
+        {loading}
         <LineSummary data = {this.state.solarData} label={this.state.label}/>
         <div>
           <button className="btn-classic"

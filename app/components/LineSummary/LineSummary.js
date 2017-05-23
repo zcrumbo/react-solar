@@ -53,8 +53,7 @@ class LineSummary extends Component{
     let solarData = proc.solar.map(el => {
       if(el) return parseFloat((el.kwh).toFixed(2));
     });
-        //debugger
-    //LineChart.defaults.global.legend.display = false;
+
     this.setState({
       chartData:{
         labels: dates.splice(1).reverse(),
@@ -84,7 +83,10 @@ class LineSummary extends Component{
       }
     });
   }
-
+  shouldComponentUpdate(nextProps){
+    if(nextProps.label===this.props.label)return false;
+    return true;
+  }
   render(){
     return(
         <section className="linechart">
@@ -97,6 +99,7 @@ class LineSummary extends Component{
 }
 
 LineSummary.propTypes = {
-  data: PropTypes.object
+  data: PropTypes.object,
+  label: PropTypes.string
 };
 export default LineSummary;
