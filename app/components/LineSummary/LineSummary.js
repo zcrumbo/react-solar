@@ -3,10 +3,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {processResultsLine} from '../../service/apiService.js';
+import {Line} from 'react-chartjs-2';
 
 import './_lineSummary.scss';
 
-const LineChart = require('react-chartjs').Line;
+//const LineChart = require('react-chartjs').Line;
 
 class LineSummary extends Component{
   constructor(props){
@@ -14,21 +15,21 @@ class LineSummary extends Component{
 
     this.state = {
       chartOptions:{
-        showScale: false,
-        //animation: false,
-        // animationSteps: 50,
-        // animationEasing: 'easeInOutQuart',
+        legend:{
+          labels:{}
+        },
+        scales: {
+          xAxes:[{
+            display:false
+          }]
+        },
         responsive: true,
-        scaleShowVerticalLines : true,
-        pointDotRadius: 3,
-        pointHitDetectionRadius: 1,
-        //bezierCurve:false,
-
+        tooltips:{
+          mode: 'index',
+          intersect:false,
+        }
       },
-      chartData: {
-        labels: [],
-        datasets: [{},{}]
-      }
+      chartData: {}
     };
   }
   componentWillReceiveProps(nextProps){
@@ -50,7 +51,7 @@ class LineSummary extends Component{
         datasets:[
           {
             label: 'generated',
-            fillColor: 'rgba(18, 220, 18, .2)',
+            backgroundColor: 'rgba(18, 220, 18, .2)',
             strokeColor: 'rgba(18,220,18,1)',
             pointColor: 'rgba(18,220,18,1)',
             pointStrokeColor: '#9bff9b',
@@ -60,7 +61,7 @@ class LineSummary extends Component{
           },
           {
             label: 'consumed',
-            fillColor: 'rgba(255,0,0,0.2)',
+            backgroundColor: 'rgba(255,0,0,0.2)',
             strokeColor: 'rgba(255,0,0,1)',
             pointColor: 'rgba(255,0,0,1)',
             pointStrokeColor: '#fff',
@@ -76,7 +77,7 @@ class LineSummary extends Component{
     return(
         <section className="linechart">
           <div><h2>{this.props.label} Summary</h2></div>
-          <LineChart data={this.state.chartData} options={this.state.chartOptions} redraw/>
+          <Line data={this.state.chartData} options={this.state.chartOptions} redraw/>
         </section>
     );
   }

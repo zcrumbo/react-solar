@@ -4,8 +4,9 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import {processResultsPie} from '../../service/apiService.js';
+import {Pie} from 'react-chartjs-2';
 
-const PieChart = require('react-chartjs').Pie;
+//const PieChart = require('react-chartjs').Pie;
 
 import './_summaryChart.scss';
 
@@ -14,22 +15,25 @@ class SummaryChart extends Component{
     super(props);
 
     this.state = {
-      chartData : [
-        {
-          value: 100,
-          color:'#12DC12',
-          highlight: '#62ff62',
-          label: 'Produced'
-        },
-        {
-          value: 100,
-          color: '#ff0000',
-          highlight: '#ff5656',
-          label: 'Consumed'
-        },
-      ],
+      chartData: {
+        labels: [
+          'Produced',
+          'Consumed',
+        ],
+        datasets: [{
+          data: [1,1],
+          backgroundColor:[
+            '#12DC12',
+            '#ff0000',
+          ],
+          hoverBackgroundColor:[
+            '#62ff62',
+            '#ff5656',
+          ]
+        }]
+      },
       chartOptions:{
-        animationSteps: 50,
+        duration: 300,
         animationEasing: 'easeInOutQuart',
         responsive: true
       },
@@ -41,12 +45,14 @@ class SummaryChart extends Component{
     if (nextProps.data.cname){
       let proc = processResultsPie(nextProps.data);
       this.setState(
-        {chartData:[
-          {value: parseFloat(proc.solar.toFixed(2))},
-          {value: parseFloat((proc.solar + proc.grid).toFixed(2))},
-        ]
-        }
-      );
+        {chartData:{
+          datasets:[{
+            data:[
+              parseFloat(proc.solar.toFixed(2)),
+              parseFloat((proc.solar + proc.grid).toFixed(2))
+            ]}
+          ]}
+        });
     }
   }
 
@@ -54,14 +60,15 @@ class SummaryChart extends Component{
     return(
       <section className="summary piechart">
         <h2>{this.props.label} Summary (kwh)</h2>
-        <PieChart data={this.state.chartData} options={this.state.chartOptions} width="300" height="300" />
+        <Pie data={this.state.chartData} options={this.state.chartOptions} width={300} height={300} />
       </section>
     );
   }
 }
 
 SummaryChart.propTypes = {
-  data: PropTypes.object
+  data: PropTypes.object,
+  label: PropTypes.string
 };
 
 export default SummaryChart;
