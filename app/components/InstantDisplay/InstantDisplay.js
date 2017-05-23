@@ -21,7 +21,7 @@ export class InstantDisplay extends Component{
         consumption:0,
       }
 
-    }; //only place you can assign state
+    };
   }
   componentDidMount() {
     this.updateInst();
@@ -59,14 +59,14 @@ export class InstantDisplay extends Component{
       <section className="instant-display">
         <div className="data-vis">
           <div className="made" style={{width: this.state.generated*100+'vw'}}>
-            <p>generated</p>
+            <p><CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} useEasing={false} /> Watts </p>
           </div>
           <div className="used" style={{width: this.state.consumed*100+'vw'}}>
-            <p>consumed</p>
+            <p><CountUp  start={this.state.prevCons} end={this.state.instant.consumption} duration={2} useEasing={false}/> Watts</p>
 
           </div>
         </div>
-        <ul>
+        {/*<ul>
          <li className="consumed">
           Consumed:
           <span> <CountUp  start={this.state.prevCons} end={this.state.instant.consumption} duration={2} useEasing={false}/> Watts </span>
@@ -75,7 +75,7 @@ export class InstantDisplay extends Component{
          Generated:
           <span> <CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} useEasing={false} /> Watts  </span>
           </li>
-        </ul>
+        </ul>*/}
       </section>
     );
   }
