@@ -9,11 +9,11 @@
       transition: all 1s;
       display:inline-block;
       height:30vw;
+      position:relative;
       p {
         transform: rotate(90deg);
         transform-origin: left top;
         font-size:4.5vw;
-        float:left;
         margin:1vw 0 0 5vw;
         color: rgba(255,255,255,.7);
         span{
@@ -23,6 +23,12 @@
     }
     .made{
       background-color:#12dc12;
+      text-align: right;
+      p{
+        transform: rotate(90deg) translate(25vw, 1vw);
+        transform-origin: right top;
+
+        }
     }
     .used{
       background-color:red;

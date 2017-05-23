@@ -20,7 +20,7 @@ class Summaries extends Component{
       lastYear: moment().subtract(1, 'year').unix(),
       now: moment().unix(),
       solarData:{},
-      label: '12 Month'
+      label: '24 Hour'
     };
   }
 
@@ -28,14 +28,11 @@ class Summaries extends Component{
     this.updateState();
   }
   updateState(start, end, intv, skip, label){
-    //debugger;
     if (skip === undefined) skip=9;
     if(!label) label='24 Hour';
-    ///debugger
     fetchData(start || moment().subtract(1, 'day').unix(), end || this.state.now, intv || 'm', skip)
     .then( res => {
       this.setState({solarData: res, label});
-      //console.log(this.state.solarData)
     });
   }
   render(){
@@ -60,8 +57,8 @@ class Summaries extends Component{
             past 24 hours
           </button>
         </div>
-        <UsageChart data={this.state.solarData} label={this.state.label} />
         <SummaryChart data = {this.state.solarData} label={this.state.label}/>
+        <UsageChart data={this.state.solarData} label={this.state.label} />
       </section>
     );
   }
