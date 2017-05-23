@@ -6,11 +6,33 @@
     .btn-classic{
       flex-grow:1;
       height: 6vw;
-      font-size: 3vw;
+      font-size: 2.6vw;
       margin: 1%;
       background: #ffc107;
       border:none;
       color: white;
+    }
+  }
+  .piechart{
+    width: 44%;
+    height: auto;
+    margin: $gutter-std;
+    display:inline-block;
+    white-space: nowrap;
+  }
+  h2 {
+    margin-bottom: $gutter-std;
+    font-width: 2.5vw;
+    text-align: center;
+  }
+}
+
+@media #{$mobile} {
+  .summaries{
+    .piechart{
+      width:100%;
+      white-space: normal;
+      margin: $gutter-std 0;
     }
   }
 }

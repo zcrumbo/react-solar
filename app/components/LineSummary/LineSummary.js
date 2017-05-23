@@ -16,17 +16,23 @@ class LineSummary extends Component{
     this.state = {
       chartOptions:{
         legend:{
-          labels:{}
+          labels:{
+            boxWidth: 50,
+            fontSize: 14
+          }
         },
         scales: {
           xAxes:[{
             display:false
           }],
           yAxes:[{
-            display:false
+            display:false,
+            ticks:{
+              min:0
+            }
           }]
         },
-        pointRadius:0,
+        pointRadius:3,
         responsive: true,
         tooltips:{
           mode: 'index',

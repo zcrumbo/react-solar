@@ -29,8 +29,10 @@ class Summaries extends Component{
   }
   updateState(start, end, intv, skip, label){
     //debugger;
-    if(!label) label='12 Month';
-    fetchData(start || this.state.lastYear, end || this.state.now, intv || 'd', skip || '0')
+    if (skip === undefined) skip=9;
+    if(!label) label='24 Hour';
+    ///debugger
+    fetchData(start || moment().subtract(1, 'day').unix(), end || this.state.now, intv || 'm', skip)
     .then( res => {
       this.setState({solarData: res, label});
       //console.log(this.state.solarData)
@@ -39,23 +41,27 @@ class Summaries extends Component{
   render(){
     return (
       <section className="summaries">
-        <UsageChart data={this.state.solarData} label={this.state.label} />
-        <SummaryChart data = {this.state.solarData} label={this.state.label}/>
+        <LineSummary data = {this.state.solarData} label={this.state.label}/>
         <div>
           <button className="btn-classic"
-            onClick={() => this.updateState(moment().subtract(1, 'year').unix(), moment().unix(), 'd', 0, '12 Months')}>
+            onClick={() => this.updateState(moment().subtract(1, 'year').unix(), moment().unix(), 'd', '0', '12 Month')}>
             past 12 months
           </button>
-                    <button className="btn-classic"
-            onClick={() => this.updateState(moment().subtract(1, 'week').unix(), moment().unix(), 'h', 3, '7 days')}>
+          <button className="btn-classic"
+            onClick={() => this.updateState(moment().subtract(1, 'month').unix(), moment().unix(), 'd', '0', '1 Month')}>
+            past 1 month
+          </button>
+          <button className="btn-classic"
+            onClick={() => this.updateState(moment().subtract(1, 'week').unix(), moment().unix(), 'h', '0', '7 Day')}>
             past 7 days
           </button>
           <button className="btn-classic"
-            onClick={() => this.updateState(moment().subtract(1, 'day').unix(), moment().unix(), 'm', 19, '24 Hours')}>
+            onClick={() => this.updateState(moment().subtract(1, 'day').unix(), moment().unix(), 'm', 9, '24 Hour')}>
             past 24 hours
           </button>
         </div>
-        <LineSummary data = {this.state.solarData} label={this.state.label}/>
+        <UsageChart data={this.state.solarData} label={this.state.label} />
+        <SummaryChart data = {this.state.solarData} label={this.state.label}/>
       </section>
     );
   }

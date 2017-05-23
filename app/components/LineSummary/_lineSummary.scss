@@ -1,9 +1,12 @@
 @import "../../scss/lib/theme/global-vars";
 
 .linechart{
+
   width:100%;
   position:relative;
-  //margin: $gutter-std;
+  margin: $gutter-std 0;
+  padding-top: $gutter-std;
+  border-top: 1px solid #ccc;
   div{
     position: absolute;
     top: 70px;
