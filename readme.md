@@ -10,8 +10,9 @@ This app leverages the [eGauge home energy monitor API](https://www.egauge.net/d
 
 # Architecture
 Built with React.js
+Leverages chart.js for data visualization
 
-#Installation
+# Installation
 ```npm i```
 
 ### Testing
