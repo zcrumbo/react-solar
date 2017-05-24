@@ -60,8 +60,9 @@ class LineSummary extends Component{
         datasets:[
           {
             label: 'kWh generated',
-            backgroundColor: 'rgba(18, 220, 18, .2)',
-            strokeColor: 'rgba(18,220,18,1)',
+            backgroundColor: 'rgba(18, 220, 18, .4)',
+            borderColor: 'rgba(18,220,18,.3)',
+            borderWidth: 1,
             pointColor: 'rgba(18,220,18,1)',
             pointStrokeColor: '#9bff9b',
             pointHighlightFill: '#9bff9b',
@@ -71,8 +72,9 @@ class LineSummary extends Component{
           },
           {
             label: 'kWh consumed',
-            backgroundColor: 'rgba(255,0,0,0.2)',
-            strokeColor: 'rgba(255,0,0,1)',
+            backgroundColor: 'rgba(255,0,0,0.4)',
+            borderColor: 'rgba(255,0,0,.3)',
+            borderWidth: 1,
             pointColor: 'rgba(255,0,0,1)',
             pointStrokeColor: '#fff',
             pointHighlightFill: '#fff',
@@ -91,7 +93,7 @@ class LineSummary extends Component{
     return(
         <section className="linechart">
           <div><h2>{this.props.label} Summary</h2></div>
-          <Line data={this.state.chartData} options={this.state.chartOptions} redraw/>
+          <Line data={this.state.chartData} options={this.state.chartOptions} height={175}/>
         </section>
     );
   }
