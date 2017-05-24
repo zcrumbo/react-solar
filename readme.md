@@ -8,11 +8,11 @@
 This app leverages the [eGauge home energy monitor API](https://www.egauge.net/docs/egauge-xml-api.pdf) to create a mobile-friendly quick visualizer to give an overview of solar production and electricity consumption.
 
 
-# Architecture
+### Architecture
 Built with React.js
 Leverages chart.js for data visualization
 
-# Installation
+### Installation
 ```npm i```
 
 ### Testing
