@@ -66,6 +66,7 @@ export class InstantDisplay extends Component{
 
           </div>
         </div>
+        <h2>Instant</h2>
         {/*<ul>
          <li className="consumed">
           Consumed:
