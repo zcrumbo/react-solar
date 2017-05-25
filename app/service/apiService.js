@@ -3,8 +3,10 @@
 import request from 'superagent';
 import {Parser} from 'xml2js';
 import moment from 'moment';
+import 'whatwg-fetch';
 
-const parser = new Parser({mergeAttrs: true, charkey: 'val'});
+const parser = new Parser({mergeAttrs: true, charkey: 'val', async:true});
+const PORT = process.env.PORT || 8000;
 
 var days = null;
 function fetchData(start, end, int, skip, url){
@@ -28,7 +30,42 @@ function fetchData(start, end, int, skip, url){
     });
   });
 }
-
+function fetchDataProxy(start, end, int, skip){
+  days = skip;
+  const PORT = process.env.PORT || 8000;
+  const endPoint = `http://localhost:${PORT}/api/proxy/saved`;
+  return new Promise( (resolve, reject) => {
+    request.post(endPoint)
+    .set('Accept', 'application/json')
+    .set('Content-type', 'application/json')
+    .send({
+      start,
+      end,
+      interval: int || 'd',
+      skip: skip || 363,
+    }).end ((err, res) => {
+      if (err) reject('server error');
+      parser.parseString(res.text, (err, results) => {
+        if (err) reject('xml parse error');
+        resolve(results.group.data[0]);
+      });
+    });
+  });
+}
+function fetchDataInstantProxy(){
+  const uri = `http://localhost:${PORT}/api/proxy/instant`;
+  return new Promise((resolve, reject) => {
+    request.post(uri)
+    .end((err, res) => {
+      if (err) reject('server error');
+      parser.parseString(res.text.trim(), (err, results) => {
+        if (err) reject (err);
+        if (results) var t =  processResultsIns(results);
+        resolve(t);
+      });
+    });
+  });
+}
 function processResultsPie(resObj){
   let procObj = {};
   resObj.r[0].c.forEach((el, index) => {
@@ -51,4 +88,14 @@ function processResultsLine(resObj){
   return procObj;
 }
 
-export {fetchData, processResultsPie, processResultsLine};
+function processResultsIns(resObj){
+  const procObj = {
+    instant:{
+      generation:parseInt(resObj.data.r[6].i[0]),
+      consumption:parseInt(resObj.data.r[5].i[0]),
+    }
+  };
+  return procObj;
+}
+
+export {fetchData, fetchDataProxy, fetchDataInstantProxy, processResultsPie, processResultsLine, processResultsIns};

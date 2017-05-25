@@ -2,9 +2,8 @@
 
 import React from 'react';
 import { Component } from 'react';
-import request from 'superagent';
 import CountUp from 'react-countup';
-
+import {fetchDataInstantProxy} from '../../service/apiService.js';
 
 import './_InstantDisplay.scss';
 
@@ -23,11 +22,11 @@ export class InstantDisplay extends Component{
 
     };
   }
-  componentDidMount() {
+  componentWillMount() {
     this.updateInst();
     this.reqTimer = setInterval(
       () => this.updateInst(),
-      2000
+      1000
     );
   }
   componentWillUnmount() {
@@ -35,21 +34,37 @@ export class InstantDisplay extends Component{
 
   }
   updateInst(){
-    request.post('http://www.zacharycrumbo.com/widgets/solar-vanilla/solar-instant.php')
-    .set('Accept', 'application/json')
-    .end( (err, res)=> {
-      if (err) return new Error('api error');
-      let total = res.body.instant.consumption+res.body.instant.generation;
-      let percentMade = res.body.instant.generation/total;
-      let percentUsed = res.body.instant.consumption/total;
+    fetchDataInstantProxy()
+    .then (res => {
+      let total = res.instant.consumption+res.instant.generation;
+      let percentMade = res.instant.generation/total;
+      let percentUsed = res.instant.consumption/total;
       this.setState( (prevState) => ({
         generated:percentMade,
         consumed: percentUsed,
         prevGen: prevState.instant.generation,
         prevCons: prevState.instant.consumption,
       }));
-      this.setState(res.body);
+      this.setState(res);
+    })
+    .catch( err => {
+      console.error(err)
     });
+    // request.post('http://www.zacharycrumbo.com/widgets/solar-vanilla/solar-instant.php')
+    // .set('Accept', 'application/json')
+    // .end( (err, res)=> {
+    //   if (err) return new Error('api error');
+    //   let total = res.body.instant.consumption+res.body.instant.generation;
+    //   let percentMade = res.body.instant.generation/total;
+    //   let percentUsed = res.body.instant.consumption/total;
+    //   this.setState( (prevState) => ({
+    //     generated:percentMade,
+    //     consumed: percentUsed,
+    //     prevGen: prevState.instant.generation,
+    //     prevCons: prevState.instant.consumption,
+    //   }));
+    //   this.setState(res.body);
+    // });
   }
 
 

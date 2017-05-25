@@ -7,7 +7,7 @@ import UsageChart from '../UsageChart/UsageChart.js';
 import SummaryChart from '../SummaryChart/SummaryChart.js';
 import LineSummary from '../LineSummary/LineSummary.js';
 
-import {fetchData} from '../../service/apiService.js';
+import {fetchData, fetchDataProxy} from '../../service/apiService.js';
 
 import './_summaries.scss';
 
@@ -33,10 +33,18 @@ class Summaries extends Component{
     if (!this.state.loading) this.setState({loading:true});
     if (skip === undefined) skip=9;
     if(!label) label='24 Hour';
-    fetchData(start || moment().subtract(1, 'day').unix(), end || this.state.now, intv || 'm', skip)
+    fetchDataProxy(start || moment().subtract(1, 'day').unix(), end || this.state.now, intv || 'm', skip)
     .then( res => {
+      //console.log(res);
       this.setState({solarData: res, label, loading:false});
+    })
+    .catch(err => {
+      console.error(err);
     });
+    // fetchData(start || moment().subtract(1, 'day').unix(), end || this.state.now, intv || 'm', skip)
+    // .then( res => {
+    //   this.setState({solarData: res, label, loading:false});
+    // });
   }
   render(){
     let loading = null;

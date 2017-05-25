@@ -24,7 +24,6 @@ module.exports = {
     new webpack.DefinePlugin({
       __API_URL__: JSON.stringify(process.env.API_URL),
       __DEBUG__: JSON.stringify(!production),
-      __defaultUserPhoto__: JSON.stringify('/assets/user-anon.jpg')
     })
   ],
   module: {
