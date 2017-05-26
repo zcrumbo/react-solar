@@ -6,9 +6,8 @@ import moment from 'moment';
 import os from 'os';
 
 const parser = new Parser({mergeAttrs: true, charkey: 'val', async:true});
-const PORT = process.env.PORT || 8080;
+const PORT = 80;
 const server = os.hostname();
-debugger
 var days = null;
 function fetchData(start, end, int, skip, url){
   days = skip;
@@ -53,7 +52,7 @@ function fetchDataProxy(start, end, int, skip){
   });
 }
 function fetchDataInstantProxy(){
-  const uri = `http://${server}/api/proxy/instant`;
+  const uri = `http://${server}:${PORT}/api/proxy/instant`;
   return new Promise((resolve, reject) => {
     request.post(uri)
     .end((err, res) => {
