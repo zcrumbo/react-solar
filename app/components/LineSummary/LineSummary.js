@@ -44,6 +44,7 @@ class LineSummary extends Component{
   }
   componentWillReceiveProps(nextProps){
     let proc = processResultsLine(nextProps.data);
+    //console.log(proc);
     let dates = proc.grid.map(el => {
       if(el) return el.date;
     });

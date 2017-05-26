@@ -33,7 +33,7 @@ class Summaries extends Component{
     if (!this.state.loading) this.setState({loading:true});
     if (skip === undefined) skip=9;
     if(!label) label='24 Hour';
-    fetchDataProxy(start || moment().subtract(1, 'day').unix(), end || this.state.now, intv || 'm', skip)
+    fetchDataProxy(start || moment().subtract(1, 'day').unix(), end || moment().unix(), intv || 'm', skip)
     .then( res => {
       //console.log(res);
       this.setState({solarData: res, label, loading:false});
@@ -52,7 +52,7 @@ class Summaries extends Component{
       loading  = <div className="loader-parent">
                   <div className="loader"></div>
                   </div>;
-                }
+    }
     return (
       <section className="summaries">
         {loading}

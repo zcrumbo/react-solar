@@ -47,6 +47,7 @@ function fetchDataProxy(start, end, int, skip){
       if (err) reject('server error');
       parser.parseString(res.text, (err, results) => {
         if (err) reject('xml parse error');
+        results.group.data[0].start = start;
         resolve(results.group.data[0]);
       });
     });
@@ -76,12 +77,18 @@ function processResultsPie(resObj){
 }
 
 function processResultsLine(resObj){
+  //console.log(resObj)
   let procObj = {};
   resObj.r[0].c.forEach((el, index) => {
     let name = resObj.cname[index].val.replace(/[D\s]/g, '_').replace(/[!@|]/g, '').toLowerCase();
 
     procObj[name]=resObj.r.map((row, i, array) => {
-      if(array[i-1]) return {date:moment().subtract((+days+1)*i, 'day').format('MM DD YY'), kwh:( array[i-1].c[index]- row.c[index])/3600000};
+      if(array[i-1]) {
+        return {
+          date: moment.unix(resObj.start).add(resObj.time_delta[0] * (array.length-i), 'seconds').format('MM DD YY HH:mm'),
+          kwh:( array[i-1].c[index]- row.c[index])/3600000
+        };
+      }
     });
   });
   return procObj;
