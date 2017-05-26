@@ -37,8 +37,9 @@ proxyRouter.post('/api/proxy/saved', jsonParser, (req, res, next)=>{
 proxyRouter.post('/api/proxy/instant', (req, res, next) => {
   rp('http://egauge16844.egaug.es/57A4C/cgi-bin/egauge?tot&inst')
   .then( pRes => {
-    console.log(pRes)
+    //console.log(pRes)
     res.send(pRes);
   })
   .catch(next);
 });
+
