@@ -6,8 +6,9 @@ import moment from 'moment';
 import os from 'os';
 
 const parser = new Parser({mergeAttrs: true, charkey: 'val', async:true});
-const PORT = 80;
 const server = os.hostname();
+const PORT = server === 'localhost'? 8000 : 80;
+
 var days = null;
 function fetchData(start, end, int, skip, url){
   days = skip;
