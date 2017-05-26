@@ -3,7 +3,6 @@
 import request from 'superagent';
 import {Parser} from 'xml2js';
 import moment from 'moment';
-import 'whatwg-fetch';
 
 const parser = new Parser({mergeAttrs: true, charkey: 'val', async:true});
 const PORT = process.env.PORT || 8000;
@@ -60,8 +59,7 @@ function fetchDataInstantProxy(){
       if (err) reject('server error');
       parser.parseString(res.text.trim(), (err, results) => {
         if (err) reject (err);
-        if (results) var t =  processResultsIns(results);
-        resolve(t);
+        if (results) resolve(processResultsIns(results));
       });
     });
   });
