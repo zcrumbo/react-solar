@@ -10,7 +10,10 @@ import './_InstantDisplay.scss';
 export class InstantDisplay extends Component{
   constructor(props){
     super(props);
+    this.toggleView = this.toggleView.bind(this);
     this.state = {
+      expanded:false,
+      classes:'data-vis',
       consumed:.5,
       generated:.5,
       prevGen:0,
@@ -48,8 +51,9 @@ export class InstantDisplay extends Component{
       this.setState(res);
     })
     .catch( err => {
-      console.error(err)
+      console.error(err);
     });
+
     // request.post('http://www.zacharycrumbo.com/widgets/solar-vanilla/solar-instant.php')
     // .set('Accept', 'application/json')
     // .end( (err, res)=> {
@@ -67,12 +71,22 @@ export class InstantDisplay extends Component{
     // });
   }
 
+  toggleView(){
+    let newclass=[];
+    //debugger;
+    this.state.expanded ? newclass = 'data-vis': newclass = 'data-vis expanded';
+    this.setState(
+      {
+        expanded: !this.state.expanded,
+        classes: newclass,
+      });
+  }
 
   render() {
 
     return  (
       <section className="instant-display">
-        <div className="data-vis">
+        <div className={this.state.classes}>
           <div className="made" style={{width: this.state.generated*100+'vw'}}>
             <p><CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} useEasing={false} /> Watts </p>
           </div>
@@ -82,6 +96,7 @@ export class InstantDisplay extends Component{
           </div>
         </div>
         <h2>Instant</h2>
+        <button onClick={this.toggleView}>+</button>
         {/*<ul>
          <li className="consumed">
           Consumed:

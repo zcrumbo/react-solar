@@ -19,7 +19,7 @@
     color: rgba(255,255,255,0);
     transition: all 300ms;
     cursor: pointer;
-    &:hover{
+    &.expanded{
       height:30vw;
       color: rgba(255,255,255,.7);
     }
