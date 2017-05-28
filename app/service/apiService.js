@@ -97,8 +97,8 @@ function processResultsLine(resObj){
 function processResultsIns(resObj){
   const procObj = {
     instant:{
-      generation:parseInt(resObj.data.r[6].i[0]),
-      consumption:parseInt(resObj.data.r[5].i[0]),
+      generation:parseInt(resObj.data.r[1].i[0]),
+      consumption:parseInt(resObj.data.r[0].i[0])+ parseInt(resObj.data.r[1].i[0]),
     }
   };
   return procObj;

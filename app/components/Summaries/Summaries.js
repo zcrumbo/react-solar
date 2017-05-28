@@ -31,6 +31,7 @@ class Summaries extends Component{
 
   updateState(start, end, intv, skip, label){
     if (!this.state.loading) this.setState({loading:true});
+    //this.setState({solarData:[0,0], })
     if (skip === undefined) skip=9;
     if(!label) label='24 Hour';
     fetchDataProxy(start || moment().subtract(1, 'day').unix(), end || moment().unix(), intv || 'm', skip)
@@ -63,11 +64,11 @@ class Summaries extends Component{
             12 months
           </button>
           <button className="btn-classic"
-            onClick={() => this.updateState(moment().subtract(3, 'month').unix(), moment().unix(), 'd', '0', '1 Month')}>
+            onClick={() => this.updateState(moment().subtract(3, 'month').unix(), moment().unix(), 'h', '11', '3 Month')}>
             3 months
           </button>
           <button className="btn-classic"
-            onClick={() => this.updateState(moment().subtract(1, 'month').unix(), moment().unix(), 'd', '0', '1 Month')}>
+            onClick={() => this.updateState(moment().subtract(1, 'month').unix(), moment().unix(), 'h', '5', '1 Month')}>
             1 month
           </button>
           <button className="btn-classic"
