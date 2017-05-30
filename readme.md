@@ -13,6 +13,7 @@ Built with React.js
 Leverages chart.js for data visualization
 
 ### Installation
+* clone this repository
 * ```npm i```
 * set your eGauge ID as the environment variable ```EGAUGE_ID```, or use dotenv to do it for you.
 * if using dotenv, use the format ```EGAUGE_ID=XXXXXX```
