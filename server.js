@@ -8,13 +8,13 @@ const jsonParser = require('body-parser').json();
 const rp = require('request-promise');
 const dotenv = require('dotenv');
 const app = express();
+
+dotenv.load();
+
 const PORT = process.env.PORT || 8080;
 const EGAUGE_ID = process.env.EGAUGE_ID;
 
-console.log('------------------------------------------>', EGAUGE_ID)
 const proxyRouter = Router();
-
-dotenv.load();
 
 app.use(express.static(`${__dirname}/build`));
 app.use(cors());
