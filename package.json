@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "jest":{
+    "moduleNameMapper" : {
+      "\\.(jpg|png|gif|svg)$" : "<rootDir>/__mocks__/fileMocks.js",
+      "\\.(css|scss)$" : "identity-obj-proxy"
+    }
+  },
   "scripts": {
     "build": "./node_modules/webpack/bin/webpack.js",
     "watch": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot",
@@ -69,6 +75,7 @@
     "enzyme": "^2.8.2",
     "eslint": "^3.7.1",
     "eslint-plugin-react": "^6.4.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^20.0.4",
     "react-addons-test-utils": "^15.5.1",
     "webpack-dev-server": "^2.4.5"
