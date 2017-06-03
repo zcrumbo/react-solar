@@ -22,7 +22,6 @@ export class InstantDisplay extends Component{
         generation:0,
         consumption:0,
       }
-
     };
   }
   componentWillMount() {
@@ -53,27 +52,10 @@ export class InstantDisplay extends Component{
     .catch( err => {
       console.error(err);
     });
-
-    // request.post('http://www.zacharycrumbo.com/widgets/solar-vanilla/solar-instant.php')
-    // .set('Accept', 'application/json')
-    // .end( (err, res)=> {
-    //   if (err) return new Error('api error');
-    //   let total = res.body.instant.consumption+res.body.instant.generation;
-    //   let percentMade = res.body.instant.generation/total;
-    //   let percentUsed = res.body.instant.consumption/total;
-    //   this.setState( (prevState) => ({
-    //     generated:percentMade,
-    //     consumed: percentUsed,
-    //     prevGen: prevState.instant.generation,
-    //     prevCons: prevState.instant.consumption,
-    //   }));
-    //   this.setState(res.body);
-    // });
   }
 
   toggleView(){
     let newclass=[];
-    //debugger;
     this.state.expanded ? newclass = 'data-vis': newclass = 'data-vis expanded';
     this.setState(
       {
@@ -92,20 +74,9 @@ export class InstantDisplay extends Component{
           </div>
           <div className="used" style={{width: this.state.consumed*100+'vw'}}>
             <p><CountUp  start={this.state.prevCons} end={this.state.instant.consumption} duration={2} useEasing={false}/> Watts</p>
-
           </div>
         </div>
         <h2>Instant</h2>
-        {/*<ul>
-         <li className="consumed">
-          Consumed:
-          <span> <CountUp  start={this.state.prevCons} end={this.state.instant.consumption} duration={2} useEasing={false}/> Watts </span>
-         </li>
-         <li className="generated">
-         Generated:
-          <span> <CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} useEasing={false} /> Watts  </span>
-          </li>
-        </ul>*/}
       </section>
     );
   }
