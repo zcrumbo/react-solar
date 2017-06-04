@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<data serial="0x2d195193">
+ <ts>1496531678</ts>
+ <r t="P" n="Grid"><v>3356114198</v><i>-3717</i></r>
+ <r t="P" n="Solar"><v>59215718052</v><i>3958</i></r>
+ <r t="P" n="Solar+"><v>59407975479</v><i>3958</i></r>
+ <r t="P" n="Heat Pump|"><v>15052410663</v><i>24</i></r>
+ <r t="P" n="Water Heater"><v>2156489218</v><i>2</i></r>
+</data>

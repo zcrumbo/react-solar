@@ -4,7 +4,7 @@ import React from 'react';
 import {mount, render, shallow} from 'enzyme';
 import InstantDisplay from '../app/components/InstantDisplay/InstantDisplay.js';
 
-jest.mock('../__mocks__/instantMocks.js');
+jest.mock('../app/service/apiService');
 
 describe('Instant Display Tests', function() {
   let mountedInstantDisplay;

@@ -5,6 +5,7 @@ import { Component } from 'react';
 import CountUp from 'react-countup';
 import {fetchDataInstantProxy} from '../../service/apiService.js';
 
+
 import './_InstantDisplay.scss';
 
 export class InstantDisplay extends Component{
