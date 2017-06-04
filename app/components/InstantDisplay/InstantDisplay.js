@@ -4,7 +4,8 @@ import React from 'react';
 import { Component } from 'react';
 import CountUp from 'react-countup';
 import {fetchDataInstantProxy} from '../../service/apiService.js';
-
+// import mock from '../../assets/test.xml';
+// console.log(mock)
 
 import './_InstantDisplay.scss';
 

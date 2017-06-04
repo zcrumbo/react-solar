@@ -59,6 +59,7 @@ function fetchDataInstantProxy(){
     request.post(uri)
     .end((err, res) => {
       if (err) reject('server error');
+      console.log(res)
       parser.parseString(res.text.trim(), (err, results) => {
         if (err) reject (err);
         if (results) resolve(processResultsIns(results));

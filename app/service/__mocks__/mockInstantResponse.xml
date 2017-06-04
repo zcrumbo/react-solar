@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+"<?xml version="1.0" encoding="UTF-8" ?>
 <data serial="0x2d195193">
- <ts>1496531678</ts>
- <r t="P" n="Grid"><v>3356114198</v><i>-3717</i></r>
- <r t="P" n="Solar"><v>59215718052</v><i>3958</i></r>
- <r t="P" n="Solar+"><v>59407975479</v><i>3958</i></r>
- <r t="P" n="Heat Pump|"><v>15052410663</v><i>24</i></r>
- <r t="P" n="Water Heater"><v>2156489218</v><i>2</i></r>
+ <ts>1496599422</ts>
+ <r t="P" n="Grid"><v>3325384208</v><i>-1058</i></r>
+ <r t="P" n="Solar"><v>59269564103</v><i>1358</i></r>
+ <r t="P" n="Solar+"><v>59462017317</v><i>1358</i></r>
+ <r t="P" n="Heat Pump|"><v>15056171607</v><i>25</i></r>
+ <r t="P" n="Water Heater"><v>2162135157</v><i>2</i></r>
 </data>
+"

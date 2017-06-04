@@ -46,7 +46,7 @@ module.exports = {
         loader: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]'
       },
       {test: /\.xml$/,
-        loader: 'file-loader'
+        loader: 'html-loader'
       },
     ]
   }
