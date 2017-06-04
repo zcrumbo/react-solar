@@ -11,6 +11,7 @@ export class InstantDisplay extends Component{
   constructor(props){
     super(props);
     this.toggleView = this.toggleView.bind(this);
+    this.updateInst = this.updateInst.bind(this);
     this.state = {
       expanded:false,
       classes:'data-vis',
@@ -35,6 +36,7 @@ export class InstantDisplay extends Component{
     clearInterval(this.reqTimer);
 
   }
+
   updateInst(){
     fetchDataInstantProxy()
     .then (res => {
