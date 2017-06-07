@@ -28,12 +28,13 @@
       position:relative;
       height: 100%;
       p {
+        position: absolute;
         transform: rotate(90deg) translate(100%, 100%);
         transform-origin: 30vw;
         text-align: center;
         width: 28vw;
         margin:1vw 0 0 5vw;
-        float:right;
+        //float:right;
         span{
           font-family:'Roboto Mono', monospace;
         }
@@ -44,13 +45,14 @@
       border: 1px solid rgba(18, 220, 18, .7);
       text-align: right;
       p{
-
+          right:0px
         }
     }
     .used{
       background-color:rgba(255,0,0, .6);
       border: 1px solid rgba(255,0,0, .7);
       p{
+        left:0px;
         // float:left;
         // transform-origin: 0vw;
       }
