@@ -4,8 +4,7 @@ import React from 'react';
 import { Component } from 'react';
 import CountUp from 'react-countup';
 import {fetchDataInstantProxy} from '../../service/apiService.js';
-// import mock from '../../assets/test.xml';
-// console.log(mock)
+
 
 import './_InstantDisplay.scss';
 
@@ -14,8 +13,10 @@ export class InstantDisplay extends Component{
     super(props);
     this.toggleView = this.toggleView.bind(this);
     this.updateInst = this.updateInst.bind(this);
+    this.pauseInst = this.pauseInst.bind(this);
     this.state = {
       expanded:false,
+      paused:false,
       classes:'data-vis',
       consumed:.5,
       generated:.5,
@@ -29,10 +30,12 @@ export class InstantDisplay extends Component{
   }
   componentWillMount() {
     this.updateInst();
-    this.reqTimer = setInterval(
-      () => this.updateInst(),
-      1000
-    );
+    if(!this.paused) {
+      this.reqTimer = setInterval(
+        () => this.updateInst(),
+        1000
+      );
+    }
   }
   componentWillUnmount() {
     clearInterval(this.reqTimer);
@@ -56,6 +59,15 @@ export class InstantDisplay extends Component{
     .catch( err => {
       console.error(err);
     });
+  }
+  pauseInst(){
+    !this.state.paused
+      ? clearInterval(this.reqTimer)
+      : this.reqTimer = setInterval(
+        () => this.updateInst(),
+        1000
+        );
+    this.setState({paused:!this.state.paused});
   }
 
   toggleView(){
@@ -81,6 +93,7 @@ export class InstantDisplay extends Component{
           </div>
         </div>
         <h2>Instant</h2>
+        <button className="btn-classic" onClick={this.pauseInst}>pause</button>
       </section>
     );
   }
