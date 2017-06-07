@@ -13,7 +13,6 @@
   .data-vis {
     overflow: hidden;
     white-space: nowrap;
-    //position:fixed;
     height:7vw;
     font-size:4.5vw;
     color: rgba(255,255,255,0);
@@ -29,8 +28,10 @@
       position:relative;
       height: 100%;
       p {
-        transform: rotate(90deg);
-        transform-origin: left top;
+        transform: rotate(90deg) translate(100%, 100%);
+        transform-origin: 30vw;
+        text-align: center;
+        width: 28vw;
         margin:1vw 0 0 5vw;
         span{
           font-family:'Roboto Mono', monospace;
@@ -42,8 +43,7 @@
       border: 1px solid rgba(18, 220, 18, .7);
       text-align: right;
       p{
-        transform: rotate(90deg) translate(25vw, 1vw);
-        transform-origin: right top;
+        float:right;
 
         }
     }
@@ -51,9 +51,10 @@
       background-color:rgba(255,0,0, .6);
       border: 1px solid rgba(255,0,0, .7);
       p{
-        text-align: center;
-        width: 28vw;
+        // float:left;
+        // transform-origin: 0vw;
       }
+
     }
   }
   ul{
