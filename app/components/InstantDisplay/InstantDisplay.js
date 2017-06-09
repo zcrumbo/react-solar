@@ -93,7 +93,7 @@ export class InstantDisplay extends Component{
           </div>
         </div>
         <h2>Instant</h2>
-        <button className="btn-classic" onClick={this.pauseInst}>pause</button>
+        <div className="btn-classic" onClick={this.pauseInst}>&#9616;&#9616;</div>
       </section>
     );
   }
