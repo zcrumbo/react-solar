@@ -5,7 +5,7 @@ import {Parser} from 'xml2js';
 import moment from 'moment';
 import os from 'os';
 
-const parser = new Parser({mergeAttrs: true, charkey: 'val', async:true});
+const parser = new Parser({mergeAttrs: true, charkey: 'val', async:false});
 const server = os.hostname();
 const PORT = server === 'localhost'? 8000 : 80;
 
@@ -44,9 +44,10 @@ function fetchDataProxy(start, end, int, skip){
       interval: int || 'd',
       skip: skip || 363,
     }).end ((err, res) => {
-      if (err) reject('server error');
+      if (err) reject(new Error('server error'));
+      if (!res.text) reject(new Error('no text in response'));
       parser.parseString(res.text, (err, results) => {
-        if (err) reject('xml parse error');
+        if (err) reject (new Error('xml parse error'));
         results.group.data[0].start = start;
         resolve(results.group.data[0]);
       });

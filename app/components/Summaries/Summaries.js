@@ -31,21 +31,19 @@ class Summaries extends Component{
 
   updateState(start, end, intv, skip, label){
     if (!this.state.loading) this.setState({loading:true});
-    //this.setState({solarData:[0,0], })
     if (skip === undefined) skip=9;
     if(!label) label='24 Hour';
     fetchDataProxy(start || moment().subtract(1, 'day').unix(), end || moment().unix(), intv || 'm', skip)
     .then( res => {
-      //console.log(res);
       this.setState({solarData: res, label, loading:false});
     })
     .catch(err => {
       console.error(err);
+      if (err === 'xml parse error'){
+        //console.log(start, end, intv, skip, label);
+        this.updateState(start, end, intv, skip, label);
+      }
     });
-    // fetchData(start || moment().subtract(1, 'day').unix(), end || this.state.now, intv || 'm', skip)
-    // .then( res => {
-    //   this.setState({solarData: res, label, loading:false});
-    // });
   }
   render(){
     let loading = null;
