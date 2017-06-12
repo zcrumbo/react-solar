@@ -18,7 +18,7 @@
     font-size:4.5vw;
     color: rgba(255,255,255,0);
     transition: all 300ms;
-    cursor: pointer;
+    cursor: context-menu;
     &.expanded{
       height:30vw;
       color: rgba(255,255,255,.7);
@@ -83,7 +83,7 @@
   }
   div.btn-classic{
     position:absolute;
-    bottom:2%;
+    bottom:4px;
 
     cursor: pointer;
     color: rgba(0,0,0,.1);
