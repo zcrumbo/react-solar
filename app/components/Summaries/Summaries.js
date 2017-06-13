@@ -6,9 +6,13 @@ import moment from 'moment';
 import UsageChart from '../UsageChart/UsageChart.js';
 import SummaryChart from '../SummaryChart/SummaryChart.js';
 import LineSummary from '../LineSummary/LineSummary.js';
+import Alert from 'react-s-alert';
+
 
 import {fetchData, fetchDataProxy} from '../../service/apiService.js';
 
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import './_summaries.scss';
 
 class Summaries extends Component{
@@ -33,15 +37,23 @@ class Summaries extends Component{
     if (!this.state.loading) this.setState({loading:true});
     if (skip === undefined) skip=9;
     if(!label) label='24 Hour';
+    this.timeout = setTimeout(() => {
+      Alert.error('Loading error, please retry request');
+      this.setState({label:'', loading:false});
+    }, 5000);
     fetchDataProxy(start || moment().subtract(1, 'day').unix(), end || moment().unix(), intv || 'm', skip)
     .then( res => {
+      clearTimeout(this.timeout);
       this.setState({solarData: res, label, loading:false});
     })
     .catch(err => {
-      console.error(err);
+      clearTimeout(this.timeout);
+      Alert.error('Loading error, please retry request');
+      this.setState({label:'', loading:false});
+
       if (err === 'xml parse error'){
         //console.log(start, end, intv, skip, label);
-        this.updateState(start, end, intv, skip, label);
+        //this.updateState(start, end, intv, skip, label);
       }
     });
   }
@@ -80,6 +92,7 @@ class Summaries extends Component{
         </div>
         <SummaryChart data = {this.state.solarData} label={this.state.label}/>
         <UsageChart data={this.state.solarData} label={this.state.label} />
+        <Alert stack={{limit:3}} effect={'stackslide'} timeout={2000}/>
       </section>
     );
   }
