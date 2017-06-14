@@ -92,7 +92,7 @@ export class InstantDisplay extends Component{
     return  (
       <section className="instant-display">
         <div className={this.state.classes} onClick={this.toggleView}>
-          <div className="made" style={{width: this.state.generated*100+'vw'}}>
+          <div className="made" style={{width: Math.abs(this.state.generated*100)+'vw'}}>
             <p><CountUp  start={this.state.prevGen} end={this.state.instant.generation} duration={2} useEasing={false} /> Watts </p>
           </div>
           <div className="used" style={{width: this.state.consumed*100+'vw'}}>
