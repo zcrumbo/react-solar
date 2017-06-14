@@ -4,7 +4,7 @@ import React from 'react';
 import { Component } from 'react';
 import CountUp from 'react-countup';
 import {fetchDataInstantProxy} from '../../service/apiService.js';
-
+import Alert from 'react-s-alert';
 
 import './_InstantDisplay.scss';
 
@@ -14,6 +14,7 @@ export class InstantDisplay extends Component{
     this.toggleView = this.toggleView.bind(this);
     this.updateInst = this.updateInst.bind(this);
     this.pauseInst = this.pauseInst.bind(this);
+    this.tryNum = 0;
     this.state = {
       expanded:false,
       paused:false,
@@ -43,8 +44,10 @@ export class InstantDisplay extends Component{
   }
 
   updateInst(){
+    if (!this.tryNum)  this.tryNum=1;
     fetchDataInstantProxy()
     .then (res => {
+      this.tryNum=1;
       let total = res.instant.consumption+res.instant.generation;
       let percentMade = res.instant.generation/total;
       let percentUsed = res.instant.consumption/total;
@@ -57,15 +60,19 @@ export class InstantDisplay extends Component{
       this.setState(res);
     })
     .catch( err => {
-      console.error('inst',err);
+      this.tryNum++;
+      if (this.tryNum===4){
+        clearInterval(this.reqTimer);
+        Alert.error(`${err.message}, please try again`);
+      }
     });
   }
   pauseInst(){
     !this.state.paused
       ? clearInterval(this.reqTimer)
       : this.reqTimer = setInterval(
-        () => this.updateInst(),
-        1000
+          () => this.updateInst(),
+          1000
         );
     this.setState({paused:!this.state.paused});
   }

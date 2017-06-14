@@ -2,19 +2,19 @@
 
 import React, {Component} from 'react';
 import moment from 'moment';
+import Alert from 'react-s-alert';
 
 import UsageChart from '../UsageChart/UsageChart.js';
 import SummaryChart from '../SummaryChart/SummaryChart.js';
 import LineSummary from '../LineSummary/LineSummary.js';
-import Alert from 'react-s-alert';
 
-import {fetchData, fetchDataProxy} from '../../service/apiService.js';
+import {fetchDataProxy} from '../../service/apiService.js';
+import initData from '../../assets/init.json';
 
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import './_summaries.scss';
 
-import initData from '../../assets/init.json';
 
 class Summaries extends Component{
   constructor(props){
@@ -50,7 +50,7 @@ class Summaries extends Component{
     })
     .catch(err => {
       clearTimeout(this.timeout);
-      Alert.error(err.message);
+      Alert.error(`${err.message}, please try again`);
       this.setState({label:'', loading:false});
     });
   }
