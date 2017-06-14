@@ -8,12 +8,13 @@ import SummaryChart from '../SummaryChart/SummaryChart.js';
 import LineSummary from '../LineSummary/LineSummary.js';
 import Alert from 'react-s-alert';
 
-
 import {fetchData, fetchDataProxy} from '../../service/apiService.js';
 
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import './_summaries.scss';
+
+import initData from '../../assets/init.json';
 
 class Summaries extends Component{
   constructor(props){
@@ -23,7 +24,7 @@ class Summaries extends Component{
     this.state={
       lastYear: moment().subtract(1, 'year').unix(),
       now: moment().unix(),
-      solarData:{},
+      solarData:initData,
       label: 'Loading',
       loading: true,
     };
@@ -41,6 +42,7 @@ class Summaries extends Component{
       Alert.error('Loading error, please retry request');
       this.setState({label:'', loading:false});
     }, 5000);
+    //debugger
     fetchDataProxy(start || moment().subtract(1, 'day').unix(), end || moment().unix(), intv || 'm', skip)
     .then( res => {
       clearTimeout(this.timeout);
@@ -48,13 +50,8 @@ class Summaries extends Component{
     })
     .catch(err => {
       clearTimeout(this.timeout);
-      Alert.error('Loading error, please retry request');
+      Alert.error(err.message);
       this.setState({label:'', loading:false});
-
-      if (err === 'xml parse error'){
-        //console.log(start, end, intv, skip, label);
-        //this.updateState(start, end, intv, skip, label);
-      }
     });
   }
   render(){

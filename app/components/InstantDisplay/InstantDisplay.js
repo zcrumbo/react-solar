@@ -57,7 +57,7 @@ export class InstantDisplay extends Component{
       this.setState(res);
     })
     .catch( err => {
-      console.error(err);
+      console.error('inst',err);
     });
   }
   pauseInst(){
