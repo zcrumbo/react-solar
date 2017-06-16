@@ -19,13 +19,19 @@ describe('Instant Display Tests', function() {
   beforeEach(() => {
     mountedInstantDisplay = undefined;
   });
-  describe('The rendered component', () => {
+  describe('Initial rendered component', () => {
     const section = instantDisplay();
-    section.instance().updateInst = jest.fn();
+    section.instance().updateInstantProxy = jest.fn();
     section.update();
-    //console.log(section)
+    console.log(section.instance());
     test('it renders a single section', () => {
       expect(section.find('section').length).toEqual(1);
+    });
+    test('it is initially collapsed', () => {
+      expect(section.find('div.data-vis.expanded').exists()).toEqual(false);
+    });
+    test('it will start requesting data', () => {
+      expect(section.state().paused).toEqual(false);
     });
   });
   describe('the parsed data', () => {

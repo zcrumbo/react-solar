@@ -30,8 +30,8 @@ export class InstantDisplay extends Component{
     };
   }
   componentWillMount() {
-    this.updateInst();
-    if(!this.paused) {
+    if(!this.state.paused) {
+      this.updateInst();
       this.reqTimer = setInterval(
         () => this.updateInst(),
         1000
@@ -40,7 +40,6 @@ export class InstantDisplay extends Component{
   }
   componentWillUnmount() {
     clearInterval(this.reqTimer);
-
   }
 
   updateInst(){
