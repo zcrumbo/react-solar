@@ -12,6 +12,7 @@ export function fetchDataInstantProxy(){
   return new Promise((resolve, reject)=> {
     process.nextTick(() => {
       (parser.parseString(mock.text, (err, results)=> {
+        console.log(results)
         if (err) reject(err);
         resolve(results);
       }));

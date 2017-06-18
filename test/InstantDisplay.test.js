@@ -21,9 +21,9 @@ describe('Instant Display Tests', function() {
   });
   describe('Initial rendered component', () => {
     const section = instantDisplay();
-    section.instance().updateInstantProxy = jest.fn();
+    section.instance().updateInst = jest.fn();
     section.update();
-    console.log(section.instance());
+    console.log(section.debug());
     test('it renders a single section', () => {
       expect(section.find('section').length).toEqual(1);
     });
@@ -33,6 +33,7 @@ describe('Instant Display Tests', function() {
     test('it will start requesting data', () => {
       expect(section.state().paused).toEqual(false);
     });
+    test('it ')
   });
   describe('the parsed data', () => {
     //expect.assertions(1);

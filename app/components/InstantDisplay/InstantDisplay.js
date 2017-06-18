@@ -12,7 +12,7 @@ export class InstantDisplay extends Component{
   constructor(props){
     super(props);
     this.toggleView = this.toggleView.bind(this);
-    this.updateInst = this.updateInst.bind(this);
+    //this.updateInst = this.updateInst.bind(this);
     this.pauseInst = this.pauseInst.bind(this);
     this.tryNum = 0;
     this.state = {
